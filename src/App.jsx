@@ -1,15 +1,22 @@
-import reactLogo from './assets/images/react.svg'
+// import reactLogo from './assets/images/react.svg'
+import { products } from './utils/data/products'
 import './App.css'
 
 function App() {
   return (
     <>
-      <div>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Boilerplate</h1>
+      <ul className="image-gallery">
+        {
+          products.map((product) => (
+            <li
+              key={product.id}
+              className={`image-item ${product.isFeatured ? 'featured' : ''}`}
+            >
+              <img src={product.src} alt={`Product ${product.id}`} />
+            </li>
+          ))
+        }
+      </ul>
     </>
   )
 }
