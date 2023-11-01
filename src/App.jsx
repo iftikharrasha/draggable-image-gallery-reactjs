@@ -6,15 +6,33 @@ function App() {
 
   const movingItem = useRef(0);
   const movedToItem = useRef(0);
-  console.log(`initial ${movingItem.current}`)
+  // console.log(`initial ${movingItem.current}`)
   
-  //swapping items
+  //1. swapping items
+  // const handleSort = () => {
+  //     const productClone = [...products]
+  //     const temp = productClone[movingItem.current]
+  //     productClone[movingItem.current] = productClone[movedToItem.current]
+  //     productClone[movedToItem.current] = temp
+  //     setProducts(productClone)
+  // };
+
+  //2. sorting before the item
   const handleSort = () => {
-      const productClone = [...products]
-      const temp = productClone[movingItem.current]
-      productClone[movingItem.current] = productClone[movedToItem.current]
-      productClone[movedToItem.current] = temp
-      setProducts(productClone)
+    const productClone = [...products];
+    const movingItemTemp = productClone[movingItem.current];
+    
+    // The original and dropped position references
+    const originalPosition = movingItem.current;
+    const droppedPosition = movedToItem.current;
+
+    // Remove the moving item from its original position
+    productClone.splice(originalPosition, 1);
+
+    // Insert the moving item at the dropped position
+    productClone.splice(droppedPosition, 0, movingItemTemp);
+
+    setProducts(productClone);
   };
 
   const handleDragStart = (i) => {
