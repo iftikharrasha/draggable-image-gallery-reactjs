@@ -10,7 +10,7 @@ import image9 from "../../assets/images/image-9.webp";
 import image10 from "../../assets/images/image-10.jpeg";
 import image11 from "../../assets/images/image-11.jpeg";
 
-export const products = [
+export const gallery = [
     { id: 1, src: image1, isFeatured: true },
     { id: 2, src: image2, isFeatured: false },
     { id: 3, src: image3, isFeatured: false },
