@@ -1,48 +1,59 @@
 import { useRef, useState } from 'react'
 import { gallery } from './utils/data/gallery'
+import upload from './assets/images//upload.png'
 
 function App() {
   const [products, setProducts] = useState(gallery);
 
+  const [draggedItemIndex, setDraggedItemIndex] = useState(null);
+  const [dropTargetIndex, setDropTargetIndex] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
+
   const movingItem = useRef(0);
   const movedToItem = useRef(0);
-  // console.log(`initial ${movingItem.current}`)
-  
-  //1. swapping items
-  // const handleSort = () => {
-  //     const productClone = [...products]
-  //     const temp = productClone[movingItem.current]
-  //     productClone[movingItem.current] = productClone[movedToItem.current]
-  //     productClone[movedToItem.current] = temp
-  //     setProducts(productClone)
-  // };
 
-  //2. sorting before the item
-  const handleSort = () => {
+  //sorting the item
+  const handleSort = (e) => {
+    e.preventDefault();
     const productClone = [...products];
     const movingItemTemp = productClone[movingItem.current];
     
     // The original and dropped position references
-    const originalPosition = movingItem.current;
+    const draggedPosition = movingItem.current;
     const droppedPosition = movedToItem.current;
 
+    if (productClone[droppedPosition].isFeatured) {
+      // swapping with the featured item, non --> featured
+      productClone[draggedPosition].isFeatured = true;
+      productClone[droppedPosition].isFeatured = false;
+    }else{
+      if (productClone[draggedPosition].isFeatured) {
+        // dragging the featured item, featured --> non
+        productClone[1].isFeatured = true;
+        productClone[draggedPosition].isFeatured = false;
+      }
+    }
+
     // Remove the moving item from its original position
-    productClone.splice(originalPosition, 1);
+    productClone.splice(draggedPosition, 1);
 
     // Insert the moving item at the dropped position
     productClone.splice(droppedPosition, 0, movingItemTemp);
 
     setProducts(productClone);
+    setIsDragging(false);
   };
 
   const handleDragStart = (i) => {
-    console.log(`movingItem.current is now ${i}`)
     movingItem.current = i;
+    setDraggedItemIndex(i);
+    setIsDragging(true);
   }
 
   const handleDragEnter = (i) => {
-    console.log(`movedToItem.current is now ${i}`)
     movedToItem.current = i;
+    setDraggedItemIndex(null);
+    setDropTargetIndex(i);
   }
 
   return (
@@ -55,20 +66,27 @@ function App() {
               draggable
               onDragStart={() => handleDragStart(index)}
               onDragEnter={() => handleDragEnter(index)}
-              onDragOver={(e) => e.preventDefault()}
-              onDragEnd={handleSort}
+              onDragEnd={(e) => handleSort(e)}
+              // onDragOver={(e) => handleSort(e)}
           >
-              <img src={product.src} alt={`Product ${product.id}`} />
+              <div className='image-item'>
+                {isDragging && draggedItemIndex === index && (
+                  <div className="placeholder-dragged"></div>
+                )}
+                {isDragging && dropTargetIndex === index && (
+                  <div className="placeholder-dropped"></div>
+                )}
+                <img src={product.src} alt={`Product ${product.id}`} />
+              </div>
           </li>
           ))
         }
-        <li className="upload"
-        >
-            <span>
-              <img src="https://cdn.icon-icons.com/icons2/3214/PNG/512/cloud_file_upload_server_icon_196427.png" alt="upload" width={100}/>
-              <br />
-              ADD IMAGE
-            </span>
+        <li className="upload">
+          <span>
+            <img src={upload} alt="upload" width={25}/>
+            <br />
+            ADD IMAGE
+          </span>
         </li>
       </ul>
     </div>

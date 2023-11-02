@@ -87,19 +87,57 @@ button:focus-visible {
     background-color: white;
     transition: padding 0.2s;
     cursor: move;
-    img {
-      max-width: 100%;
-      height: auto;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-    &:hover {
-      padding: 10px;
-      border-radius: 0;
-      img{
+    .image-item{
+      position: relative;
+      img {
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+      &:hover {
+        padding: 10px;
         border-radius: 0;
+        img{
+          border-radius: 0;
+        }
+      }
+      .placeholder-dragged, .placeholder-dropped {
+        transition: background-color 0.2s;
+        border: 2px dashed gray;
+        background-color: white;
+        border-radius: 10px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        z-index: 1;
       }
     }
+    // .placeholder-dragged {
+    //   border: 2px dashed #ccc;
+    //   background-color: red;
+    //   border-radius: 10px;
+    //   position: absolute;
+    //   top: 0;
+    //   left: 0;
+    //   right: 0;
+    //   bottom: 0;
+    //   pointer-events: none;
+    // }
+    // .placeholder-dropped {
+    //   border: 2px dashed #ccc;
+    //   background-color: red;
+    //   border-radius: 10px;
+    //   position: absolute;
+    //   top: 0;
+    //   left: 0;
+    //   right: 0;
+    //   bottom: 0;
+    //   pointer-events: none;
+    // }
   }
   .featured {
     grid-column: span 2;
@@ -108,9 +146,14 @@ button:focus-visible {
   .upload{
     text-align: center;
     cursor: pointer;
+    border-style: dashed;
+    background-color: transparent;
     span{
-      color: black;
+      color: white;
       font-weight: 600;
+      img{
+        border-radius: 0;
+      }
     }
   }
 }
