@@ -45,7 +45,6 @@ function App() {
   };
 
   const handleDragStart = (i) => {
-    console.log("draggedPosition", i)
     movingItem.current = i;
     setDraggedItemIndex(i);
     setIsDragging(true);
@@ -77,6 +76,7 @@ function App() {
                   </div>
                 )}
                 <img src={product.src} alt={`Product ${product.id}`} />
+                {/* <p>id{product.id-1} = index{index}</p> */}
               </div>
           </li>
           ))
