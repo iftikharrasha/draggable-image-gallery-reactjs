@@ -56,6 +56,20 @@ function App() {
     setDropTargetIndex(i);
   }
 
+  const handleFileUpload = (e) => {
+    const fileToBeUploaded = e.target.files[0];
+  
+    if (fileToBeUploaded) {
+      const id = products.length + 1;
+      const src = URL.createObjectURL(fileToBeUploaded);
+      const isFeatured = false;
+  
+      const newImage = { id, src, isFeatured };
+  
+      setProducts([...products, newImage]);
+    }
+  };
+
   return (
     <div className='image-gallery'>
       <ul>
@@ -82,6 +96,12 @@ function App() {
           ))
         }
         <li className="upload">
+          <input
+            type="file"
+            name="photos"
+            id="photos"
+            onChange={handleFileUpload}
+          />
           <span>
             <img src={upload} alt="upload" width={25}/>
             <br />
