@@ -45,6 +45,7 @@ function App() {
   };
 
   const handleDragStart = (i) => {
+    console.log("draggedPosition", i)
     movingItem.current = i;
     setDraggedItemIndex(i);
     setIsDragging(true);
@@ -52,7 +53,7 @@ function App() {
 
   const handleDragEnter = (i) => {
     movedToItem.current = i;
-    setDraggedItemIndex(null);
+    setDraggedItemIndex(null)
     setDropTargetIndex(i);
   }
 
@@ -70,11 +71,10 @@ function App() {
               // onDragOver={(e) => handleSort(e)}
           >
               <div className='image-item'>
-                {isDragging && draggedItemIndex === index && (
-                  <div className="placeholder-dragged"></div>
-                )}
                 {isDragging && dropTargetIndex === index && (
-                  <div className="placeholder-dropped"></div>
+                  <div className="placeholder-overlay">
+                    <h6>Drop Here</h6>
+                  </div>
                 )}
                 <img src={product.src} alt={`Product ${product.id}`} />
               </div>
