@@ -57,17 +57,17 @@ function App() {
   }
 
   const handleFileUpload = (e) => {
-    const fileToBeUploaded = e.target.files[0];
-  
-    if (fileToBeUploaded) {
-      const id = products.length + 1;
-      const src = URL.createObjectURL(fileToBeUploaded);
+    const allFilesToBeUploaded = e.target.files;
+
+    const newImages = Array.from(allFilesToBeUploaded).map((file, index) => {
+      const id = products.length + index + 1;
+      const src = URL.createObjectURL(file);
       const isFeatured = false;
-  
-      const newImage = { id, src, isFeatured };
-  
-      setProducts([...products, newImage]);
-    }
+
+      return { id, src, isFeatured };
+    });
+
+    setProducts([...products, ...newImages]);
   };
 
   return (
@@ -81,7 +81,6 @@ function App() {
               onDragStart={() => handleDragStart(index)}
               onDragEnter={() => handleDragEnter(index)}
               onDragEnd={(e) => handleSort(e)}
-              // onDragOver={(e) => handleSort(e)}
           >
               <div className='image-item'>
                 {isDragging && dropTargetIndex === index && (
@@ -90,7 +89,6 @@ function App() {
                   </div>
                 )}
                 <img src={product.src} alt={`Product ${product.id}`} />
-                {/* <p>id{product.id-1} = index{index}</p> */}
               </div>
           </li>
           ))
@@ -98,6 +96,7 @@ function App() {
         <li className="upload">
           <input
             type="file"
+            multiple
             name="photos"
             id="photos"
             onChange={handleFileUpload}
