@@ -7,8 +7,8 @@ import image6 from "../../assets/images/image-6.webp";
 import image7 from "../../assets/images/image-7.webp";
 import image8 from "../../assets/images/image-8.webp";
 import image9 from "../../assets/images/image-9.webp";
-import image10 from "../../assets/images/image-10.jpeg";
-import image11 from "../../assets/images/image-11.jpeg";
+import image10 from "../../assets/images/image-10.webp";
+import image11 from "../../assets/images/image-11.webp";
 
 export const gallery = [
     { id: 1, src: image1 },

@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
-import { gallery } from './utils/data/gallery'
-import upload from './assets/images//upload.png'
+import { gallery } from './assets/data/gallery'
+import upload from './assets/images//upload.webp'
 
 function App() {
   const [products, setProducts] = useState(gallery);
@@ -71,15 +71,15 @@ function App() {
 
   return (
     <>
-      <div className='image-header'>
-        <div className="header-right">
+      <header className='header'>
+        <div className="header__right">
             <h2>{selectedProducts.length > 0 ? selectedProducts.length === 1 ? `1 item selected` : `${selectedProducts.length} items selected` : 'Draggable Gallery'}</h2>
         </div>
-        <div className="header-left">
+        <div className="header__left">
           {selectedProducts.length > 0 ? <button onClick={handleDeleteItems}>Delete Files</button> : ''}
         </div>
-      </div> 
-      <div className='image-gallery'>
+      </header> 
+      <section className='gallery'>
         <ul>
           {
             products.map((product, index) => (
@@ -94,13 +94,13 @@ function App() {
                   type="checkbox"
                   name={product.id}
                   id={product.id}
-                  className='image-check'
+                  className='checkbox'
                   checked={selectedProducts.find((item) => item.id === product.id) ? true : false}
                   onChange={() => handleSelectedItem(product)}
                 />
-                <div className='image-item'>
+                <div className='product'>
                   {isDragging && dropTargetIndex === index && (
-                    <div className="placeholder-overlay">
+                    <div className="product__placeholder">
                       <h6>Drop Here</h6>
                     </div>
                   )}
@@ -113,18 +113,16 @@ function App() {
             <input
               type="file"
               multiple
-              name="photos"
-              id="photos"
+              name="uploads"
               onChange={handleFileUpload}
             />
-            <span>
+            <div className='upload__icon'>
               <img src={upload} alt="upload" width={25}/>
-              <br />
-              ADD IMAGE
-            </span>
+              <p>ADD IMAGE</p>
+            </div>
           </li>
         </ul>
-      </div>
+      </section>
     </>
   )
 }

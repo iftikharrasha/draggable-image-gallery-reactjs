@@ -1,0 +1,50 @@
+:root {
+    --white: #ffffff;
+    --pink: #F030C0;
+    --black: #14141F;
+    --greyBlack: rgba(128, 128, 128, 0.5);
+    --violet: #6600FF;
+    --transparent: rgba(0,0,0,0);
+}
+
+$white: var(--white);
+$pink: var(--pink);
+$black: var(--black);
+$greyBlack: var(--greyBlack);
+$violet: var(--violet);
+$transparent: var(--transparent);
+
+$font1: 'Roboto', sans-serif;
+
+
+@mixin flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flexBetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin fontMaker($family, $size, $weight, $lineHeight) {
+    font-family: $family;
+    font-size: $size;
+    font-weight: $weight;
+    line-height: $lineHeight;
+}
+
+@mixin contentMaker {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+  
